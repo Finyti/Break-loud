@@ -7,6 +7,8 @@ public class BallShoot : MonoBehaviour
 {
     public GameObject ballPrefab;
 
+    public GameManager gameManager;
+
     public float speed;
     public float ballDeviation;
 
@@ -23,6 +25,7 @@ public class BallShoot : MonoBehaviour
 
     void Update()
     {
+        if (!gameManager.GameGoing) return;
         if (Input.GetMouseButtonDown(0) && currentBall != null && ballHolding != false)
         {
             BallRelease();
@@ -35,9 +38,11 @@ public class BallShoot : MonoBehaviour
 
     public void BallInstantiate()
     {
+        if (!gameManager.GameGoing) return;
         ballHolding = true;
         currentBall = Instantiate(ballPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity, transform);
         currentBall.transform.Rotate(new Vector3(0, 0, 90));
+        currentBall.GetComponent<BallLogic>().bs = this;
 
     }
 
@@ -54,6 +59,12 @@ public class BallShoot : MonoBehaviour
 
         //BallInstantiate();
 
+    }
+
+    public void BallLoose()
+    {
+        gameManager.BallLoose();
+        BallInstantiate();
     }
 
 

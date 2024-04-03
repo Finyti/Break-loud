@@ -18,7 +18,8 @@ public class WallManager : MonoBehaviour
 
         public GameObject wallPrefab;
     }
-
+    public GameManager gameManager;
+    private int totalBricks = 0;
     void Start()
     {
         GridSpawn();
@@ -37,7 +38,19 @@ public class WallManager : MonoBehaviour
             for (int i = 0; i < obj.brickCount; i++) 
             {
                 var brick = Instantiate(obj.wallPrefab, new Vector2(-8 + obj.margin * i + obj.wallPrefab.transform.localScale.x, obj.linePositionY), Quaternion.identity);
+                brick.transform.parent = transform;
+                totalBricks++;
             }
+        }
+    }
+
+    public void MinusBrick(int points)
+    {
+        totalBricks--;
+        gameManager.AddPoints(points);
+        if (totalBricks <= 0)
+        {
+            gameManager.GameWin();
         }
     }
 }

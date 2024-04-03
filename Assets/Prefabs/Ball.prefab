@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -5929201249726907017}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,3 +214,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballReflectDiviation: 0.2
   maxSpeed: 15
+  bs: {fileID: 0}
+  ballHit: {fileID: 8300000, guid: 05cdb510843371e498e1a63167a0212c, type: 3}
+  ballDie: {fileID: 8300000, guid: 43a2ca3c1039dcc4ab34225d5270b5b9, type: 3}
