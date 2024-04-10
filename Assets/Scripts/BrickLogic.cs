@@ -1,6 +1,8 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class BrickLogic : MonoBehaviour
 {
@@ -22,7 +24,11 @@ public class BrickLogic : MonoBehaviour
     }
     void Start()
     {
-        
+        transform.DOScale(new Vector3(1.5f, 1f, 1f), 0.5f)
+            .ChangeStartValue(Vector3.zero)
+            .SetEase(Ease.OutElastic);
+
+
     }
 
     void Update()
@@ -34,6 +40,7 @@ public class BrickLogic : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("Ball")) return;
         BrickDamage();
+        transform.DOShakePosition(0.2f, 0.1f, 100);
 
     }
 
@@ -58,9 +65,18 @@ public class BrickLogic : MonoBehaviour
             BrickBreak();
         }
     }
-    public void BrickBreak()
+    public async void BrickBreak()
     {
         transform.parent.GetComponent<WallManager>().MinusBrick(brickHealth.pointWorth);
+        transform.GetComponent<BoxCollider2D>().isTrigger = true;
+        await transform.DOShakePosition(0.2f, 0.1f, 100)
+            .AsyncWaitForCompletion();
+
+        await transform.DOLocalJump(new Vector3(Random.Range(transform.position.x - 3, transform.position.x + 3), -10, 0), 10f, 1, 1.5f)
+        .SetEase(Ease.InOutSine)
+        .AsyncWaitForCompletion();
+
+
         Destroy(gameObject);
     }
 }

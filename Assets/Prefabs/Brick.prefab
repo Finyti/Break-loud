@@ -223,6 +223,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brickHealth:
+    pointWorth: 1
     states:
     - stateHealth: 1
       stateSprite: {fileID: 21300000, guid: 095cf0889891313408d64d1da299310f, type: 3}
+  currentState: 0

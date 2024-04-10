@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,11 @@ public class BallLogic : MonoBehaviour
         {
             rb.velocity += colRb.velocity * ballReflectDiviation;
         }
+        transform.DOScale(new Vector3(0.6f, 1.1f, 1.1f), 0.1f)
+        .ChangeStartValue(new Vector3(1f, 1f, 1f))
+        .SetEase(Ease.InOutSine)
+        .SetLoops(2, LoopType.Yoyo);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

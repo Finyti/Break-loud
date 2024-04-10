@@ -10,6 +10,8 @@ public class WallManager : MonoBehaviour
     [System.Serializable]
     public class WallLine
     {
+        public float linePositionX = 0;
+
         public float linePositionY = 0;
 
         public int brickCount = 0;
@@ -31,17 +33,20 @@ public class WallManager : MonoBehaviour
         
     }
 
-    public void GridSpawn()
+    public async void GridSpawn()
     {
         foreach(var obj in grid)
         {
             for (int i = 0; i < obj.brickCount; i++) 
             {
-                var brick = Instantiate(obj.wallPrefab, new Vector2(-8 + obj.margin * i + obj.wallPrefab.transform.localScale.x, obj.linePositionY), Quaternion.identity);
+                var brick = Instantiate(obj.wallPrefab, new Vector2((obj.linePositionX + obj.wallPrefab.transform.localScale.x * 0.5f) + (obj.margin * i), obj.linePositionY), Quaternion.identity);
                 brick.transform.parent = transform;
                 totalBricks++;
+                await new WaitForSeconds(0.1f);
             }
+            await new WaitForSeconds(0.1f);
         }
+
     }
 
     public void MinusBrick(int points)

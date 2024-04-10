@@ -40,7 +40,7 @@ public class BallShoot : MonoBehaviour
     {
         if (!gameManager.GameGoing) return;
         ballHolding = true;
-        currentBall = Instantiate(ballPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity, transform);
+        currentBall = Instantiate(ballPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
         currentBall.transform.Rotate(new Vector3(0, 0, 90));
         currentBall.GetComponent<BallLogic>().bs = this;
 
@@ -49,7 +49,6 @@ public class BallShoot : MonoBehaviour
     public void BallRelease()
     {
         currentBall.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-ballDeviation, ballDeviation), Random.Range(-ballDeviation, ballDeviation)) + Vector2.down * speed;
-        currentBall.transform.parent = null;
 
         ballHolding = false;
 
